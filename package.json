@@ -5,6 +5,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "database": "docker compose -f infra/compose.yaml up",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
