@@ -14,6 +14,24 @@ async function query(queryObject) {
   return result;
 }
 
+async function getMaxConnections() {
+  const result = await query("SHOW max_connections;");
+  return result.rows[0].max_connections;
+}
+
+async function getCurrentConnections() {
+  const result = await query("SELECT COUNT(*) FROM pg_stat_activity;");
+  return result.rows[0].count;
+}
+
+async function getPostgresVersion() {
+  const result = await query("SHOW server_version;");
+  return result.rows[0].server_version;
+}
+
 export default {
   query,
+  getMaxConnections,
+  getCurrentConnections,
+  getPostgresVersion,
 };
