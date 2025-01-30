@@ -4,14 +4,17 @@ async function query(queryObject) {
   const client = new Client({
     user: process.env.POSTGRES_USER,
     host: process.env.POSTGRES_HOST,
-    database: process.env.POSTGRES_NAME,
+    database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
     port: process.env.POSTGRES_PORT,
   });
   await client.connect();
-  const result = await client.query(queryObject);
-  await client.end();
-  return result;
+  try {
+    const result = await client.query(queryObject);
+    return result;
+  } finally {
+    await client.end();
+  }
 }
 
 async function getMaxConnections() {
@@ -20,7 +23,11 @@ async function getMaxConnections() {
 }
 
 async function getCurrentConnections() {
-  const result = await query("SELECT COUNT(*) FROM pg_stat_activity;");
+  const databaseName = process.env.POSTGRES_DB;
+  const result = await query({
+    text: "SELECT COUNT(*) FROM pg_stat_activity WHERE datname = $1;",
+    values: [databaseName],
+  });
   return result.rows[0].count;
 }
 

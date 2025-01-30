@@ -7,7 +7,12 @@ async function status(request, response) {
     current_connections: Number(await db.getCurrentConnections()),
     postgres_version: await db.getPostgresVersion(),
   };
-  response.status(200).json({ updated_at, database });
+  response.status(200).json({
+    updated_at,
+    dependencies: {
+      database,
+    },
+  });
 }
 
 export default status;
