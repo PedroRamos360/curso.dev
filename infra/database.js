@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { Client } from 'pg';
 
 async function query(queryObject) {
   let client;
@@ -12,26 +12,26 @@ async function query(queryObject) {
 }
 
 async function getMaxConnections() {
-  const result = await query("SHOW max_connections;");
+  const result = await query('SHOW max_connections;');
   return result.rows[0].max_connections;
 }
 
 async function getCurrentConnections() {
   const databaseName = process.env.POSTGRES_DB;
   const result = await query({
-    text: "SELECT COUNT(*) FROM pg_stat_activity WHERE datname = $1;",
+    text: 'SELECT COUNT(*) FROM pg_stat_activity WHERE datname = $1;',
     values: [databaseName],
   });
   return result.rows[0].count;
 }
 
 async function getPostgresVersion() {
-  const result = await query("SHOW server_version;");
+  const result = await query('SHOW server_version;');
   return result.rows[0].server_version;
 }
 
 function getSSLValues() {
-  return process.env.NODE_ENV === "production" ? true : false;
+  return process.env.NODE_ENV === 'production' ? true : false;
 }
 
 async function getNewClient() {
