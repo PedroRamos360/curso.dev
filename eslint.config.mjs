@@ -17,13 +17,14 @@ const eslintConfig = [
     ignores: [".next", "infra/migrations"],
   },
   ...compat.config({
-    extends: ["next", "prettier"],
+    extends: ["next", "prettier", "plugin:jest/recommended"],
     plugins: ["react", "react-hooks", "jsx-a11y", "import"],
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
       "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
       "no-unused-vars": "error",
+      "no-undef": "error",
     },
     settings: {
       react: {
