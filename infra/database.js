@@ -47,10 +47,12 @@ async function getNewClient() {
   return client;
 }
 
-export default {
+const database = {
   query,
   getMaxConnections,
   getCurrentConnections,
   getPostgresVersion,
   getNewClient,
 };
+
+export default database;
