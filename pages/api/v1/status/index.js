@@ -1,4 +1,4 @@
-import db from 'infra/database.js';
+import db from "infra/database.js";
 
 async function status(request, response) {
   const updated_at = new Date().toISOString();
