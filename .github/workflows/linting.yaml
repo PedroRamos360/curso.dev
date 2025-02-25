@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
       - run: npm run eslint:check
   commitlint:
-    name: commitlint
+    name: Commitlint
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
